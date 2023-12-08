@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +33,7 @@ public class EmployeeController {
   public void setEmployeeService(EmployeeService employeeService) {
     this.employeeService = employeeService;
   }
-
+  @Cacheable("employeesCache")
   @GetMapping("/employees")
   public List<Employee> getEmployees() {
     try {
